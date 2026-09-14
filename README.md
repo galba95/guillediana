@@ -1,6 +1,8 @@
 Site de mariage — Diana & Guillaume — 3 juillet 2027
   Château de Bertreville-Saint-Ouen
 
+  Ce site est servi depuis index.html (page d'accueil du domaine).
+
   IMAGES REQUISES (à placer dans le MÊME DOSSIER que ce fichier HTML) :
     1. photo-couple.jpg   — photo du couple (section "photo-nous")
     2. photo-chateau.webp — photo du château (section "photo-chateau")
