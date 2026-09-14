@@ -2,6 +2,28 @@
 <!--
   Site de mariage — Diana & Guillaume — 3 juillet 2027
   Château de Bertreville-Saint-Ouen
+
+  IMAGES REQUISES (à placer dans le MÊME DOSSIER que ce fichier HTML) :
+    1. photo-couple.jpg   — photo du couple (section "photo-nous")
+    2. photo-chateau.webp — photo du château (section "photo-chateau")
+
+  À COMPLÉTER PAR VOUS :
+    - Texte de "Notre histoire"
+    - Lien de la liste de mariage / cagnotte Kagnotte.com (id="liste-link")
+
+  NAVIGATION :
+    Seul le bouton "Répondre" (section RSVP) redirige vers une autre page :
+    rsvp.html, qui doit rester dans le même dossier que ce fichier pour que
+    le lien fonctionne (ouverture locale ou une fois déployé).
+
+  STOCKAGE DES RÉPONSES RSVP :
+    Géré entièrement dans rsvp.html — voir les commentaires de ce fichier.
+
+  CRÉDIT ICÔNE :
+    Motif floral latéral (hero) — icône "Орнамент-9" par Maria Zamchy,
+    via The Noun Project. Vérifier les conditions de licence/attribution
+    selon votre usage (licence gratuite = attribution visible requise,
+    licence Pro = pas d'attribution nécessaire).
 -->
 <html lang="fr">
 <head>
@@ -261,32 +283,40 @@
   <div class="wrap">
     <h1>Diana &amp; Guillaume</h1>
 
-    <!-- Motif floral (répliqué à l'identique du motif secondaire ci-dessous) -->
-    <svg class="floral" width="90" height="50" viewBox="0 0 90 50" aria-hidden="true">
+    <!-- Motif floral principal (original : lignes + arches + rosace) -->
+    <svg class="floral" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true">
+      <line x1="0" y1="35" x2="55" y2="35" stroke="#7A3341" stroke-width="1"/>
+      <line x1="165" y1="35" x2="220" y2="35" stroke="#7A3341" stroke-width="1"/>
+      <path d="M60,35 C66,28 76,28 82,35 C76,42 66,42 60,35 Z" fill="none" stroke="#7A3341" stroke-width="1"/>
+      <path d="M138,35 C144,28 154,28 160,35 C154,42 144,42 138,35 Z" fill="none" stroke="#7A3341" stroke-width="1"/>
       <g fill="none" stroke="#7A3341" stroke-width="1">
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(0 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(72 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(144 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(216 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(288 45 28)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(0 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(72 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(144 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(216 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(288 110 32)"/>
       </g>
-      <circle cx="45" cy="28" r="2.5" fill="#7A3341"/>
+      <circle cx="110" cy="32" r="3" fill="#7A3341"/>
     </svg>
 
     <p class="hero-date" data-i18n="hero_date">Samedi 3 juillet 2027</p>
     <p class="hero-place" data-i18n="hero_place">Château de Bertreville</p>
     <p class="hero-place2" data-i18n="hero_place2">76590 Bertreville-Saint-Ouen, Haute-Normandie</p>
 
-    <!-- Motif floral secondaire (sous la localisation) -->
-    <svg class="floral floral-small" width="90" height="50" viewBox="0 0 90 50" aria-hidden="true">
+    <!-- Motif floral secondaire (identique au premier, dupliqué à l'identique) -->
+    <svg class="floral" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true">
+      <line x1="0" y1="35" x2="55" y2="35" stroke="#7A3341" stroke-width="1"/>
+      <line x1="165" y1="35" x2="220" y2="35" stroke="#7A3341" stroke-width="1"/>
+      <path d="M60,35 C66,28 76,28 82,35 C76,42 66,42 60,35 Z" fill="none" stroke="#7A3341" stroke-width="1"/>
+      <path d="M138,35 C144,28 154,28 160,35 C154,42 144,42 138,35 Z" fill="none" stroke="#7A3341" stroke-width="1"/>
       <g fill="none" stroke="#7A3341" stroke-width="1">
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(0 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(72 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(144 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(216 45 28)"/>
-        <ellipse cx="45" cy="18" rx="5" ry="9" transform="rotate(288 45 28)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(0 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(72 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(144 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(216 110 32)"/>
+        <ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(288 110 32)"/>
       </g>
-      <circle cx="45" cy="28" r="2.5" fill="#7A3341"/>
+      <circle cx="110" cy="32" r="3" fill="#7A3341"/>
     </svg>
   </div>
 </section>
