@@ -5,7 +5,7 @@ Site de mariage — Diana & Guillaume — 3 juillet 2027
     1. photo-couple.jpg   — photo du couple (section "photo-nous")
     2. photo-chateau.webp — photo du château (section "photo-chateau")
 
-  À COMPLÉTER PAR VOUS :
+  À COMPLÉTER :
     - Texte de "Notre histoire"
     - Lien de la liste de mariage / cagnotte Kagnotte.com (id="liste-link")
 
