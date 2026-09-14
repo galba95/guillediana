@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--
+  Page RSVP — Diana & Guillaume — 3 juillet 2027
+  Doit rester dans le même dossier que mariage-diana-guillaume.html
+  pour que le lien "Répondre" fonctionne.
+
+  STOCKAGE DES RÉPONSES :
+    Utilise window.storage (stockage persistant des Artifacts Claude) quand
+    disponible. En dehors de l'environnement Claude (fichier ouvert
+    localement, ou site déployé), window.storage n'existe pas : un repli
+    automatique sur localStorage prend le relais pour que le formulaire
+    reste fonctionnel, mais chaque réponse resterait alors isolée dans le
+    navigateur de la personne qui répond, sans centralisation pour vous.
+    Pour de vraies réponses centralisées en production, il faudra brancher
+    un stockage réel (Google Sheet, Airtable, Formspree, petit backend).
+-->
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP — Diana &amp; Guillaume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#24445C;
+    --blue-deep:#17303F;
+    --bordeaux:#7A3341;
+    --bordeaux-deep:#5C2531;
+    --sand:#DCC9B0;
+    --sand-light:#F1E9DC;
+    --cream:#FBF7F0;
+    --ink:#26323C;
+    --ink-soft:#5B6772;
+    --white:#FFFFFF;
+    --radius:6px;
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+    --max:640px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;font-family:var(--sans);background:var(--cream);color:var(--ink);
+    line-height:1.65;font-size:16px;
+  }
+  a{color:var(--bordeaux);}
+  h1,h2{font-family:var(--serif);font-weight:500;color:var(--blue-deep);margin:0 0 .3em;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:56px 24px 96px;}
+  .topbar{padding:20px 24px;}
+  .back-link{font-size:.9rem;text-decoration:none;color:var(--ink-soft);}
+  .back-link:hover{color:var(--bordeaux);}
+  .langgroup{display:inline-flex;border:1px solid var(--sand);border-radius:999px;overflow:hidden;float:right;}
+  .langgroup button{
+    font-family:var(--sans);font-size:12px;font-weight:500;border:none;
+    background:transparent;color:var(--ink-soft);padding:4px 12px;cursor:pointer;
+  }
+  .langgroup button[aria-pressed="true"]{background:var(--blue);color:var(--white);}
+
+  h1{text-align:center;font-size:clamp(2.2rem,6vw,3rem);font-weight:400;}
+  .deadline-note{text-align:center;color:var(--ink-soft);font-size:.95rem;margin-bottom:40px;}
+
+  form{display:flex;flex-direction:column;gap:22px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .field label,.field .field-label,fieldset.field legend{
+    display:block;font-size:.9rem;font-weight:500;margin-bottom:6px;color:var(--ink);
+  }
+  .field input[type="text"],.field input[type="email"],.field textarea{
+    width:100%;padding:10px 12px;font-family:var(--sans);font-size:1rem;
+    border:1px solid var(--sand);border-radius:var(--radius);background:var(--white);color:var(--ink);
+  }
+  .field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--bordeaux);outline-offset:1px;}
+  textarea{min-height:90px;resize:vertical;}
+  fieldset.field{border:none;padding:0;margin:0;}
+  .radio-row{display:flex;gap:22px;flex-wrap:wrap;}
+  .radio-row label{display:flex;align-items:center;gap:6px;font-weight:400;font-size:1rem;}
+  .field-error{color:var(--bordeaux-deep);font-size:.85rem;margin:.35em 0 0;min-height:1.1em;}
+  .btn{
+    align-self:center;
+    background:var(--blue);color:var(--white);
+    border:none;padding:13px 34px;border-radius:999px;
+    font-family:var(--sans);font-size:1rem;font-weight:500;cursor:pointer;
+    margin-top:8px;
+  }
+  .btn:hover{background:var(--blue-deep);}
+  .btn:focus-visible{outline:2px solid var(--bordeaux);outline-offset:2px;}
+  #rsvp-success{
+    display:none;border:1px solid var(--sand);background:var(--white);
+    border-radius:var(--radius);padding:28px;text-align:center;
+  }
+
+  @media (max-width:560px){
+    .row2{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-link" href="mariage-diana-guillaume.html" data-i18n="back_link">&larr; Retour au site</a>
+  <div class="langgroup" role="group" aria-label="Choix de langue / Selección de idioma">
+    <button id="lang-fr" type="button" aria-pressed="true">FR</button>
+    <button id="lang-es" type="button" aria-pressed="false">ES</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1>RSVP</h1>
+  <p class="deadline-note" data-i18n="rsvp_deadline">Merci de répondre avant le 30 janvier 2027 — une réponse par invité(e).</p>
+
+  <form id="rsvp-form" novalidate>
+    <div class="row2">
+      <div class="field">
+        <label for="f-nom" data-i18n="label_nom">Nom</label>
+        <input type="text" id="f-nom" name="nom">
+        <p class="field-error" id="err-nom" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="f-prenom" data-i18n="label_prenom">Prénom</label>
+        <input type="text" id="f-prenom" name="prenom">
+        <p class="field-error" id="err-prenom" role="alert"></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-email" data-i18n="label_email">Email</label>
+      <input type="email" id="f-email" name="email">
+      <p class="field-error" id="err-email" role="alert"></p>
+    </div>
+
+    <fieldset class="field">
+      <legend data-i18n="label_presence">Serez-vous présent(e) ?</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="presence" value="oui"> <span data-i18n="yes">Oui</span></label>
+        <label><input type="radio" name="presence" value="non"> <span data-i18n="no">Non</span></label>
+      </div>
+      <p class="field-error" id="err-presence" role="alert"></p>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend data-i18n="label_vege">Régime végétarien ?</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="vege" value="oui"> <span data-i18n="yes">Oui</span></label>
+        <label><input type="radio" name="vege" value="non"> <span data-i18n="no">Non</span></label>
+      </div>
+      <p class="field-error" id="err-vege" role="alert"></p>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend data-i18n="label_allergies">Allergie alimentaire ?</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="allergies" value="oui"> <span data-i18n="yes">Oui</span></label>
+        <label><input type="radio" name="allergies" value="non"> <span data-i18n="no">Non</span></label>
+      </div>
+      <p class="field-error" id="err-allergies" role="alert"></p>
+      <div id="allergies-detail-wrap" style="display:none;margin-top:14px;">
+        <label for="f-allergies-detail" data-i18n="label_allergies_detail">Précisez</label>
+        <input type="text" id="f-allergies-detail" name="allergies_detail">
+        <p class="field-error" id="err-allergies-detail" role="alert"></p>
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="f-comment" data-i18n="label_comment">Un mot pour nous ?</label>
+      <textarea id="f-comment" name="comment"></textarea>
+    </div>
+
+    <p class="field-error" id="err-form" role="alert"></p>
+    <button class="btn" type="submit" data-i18n="submit">Envoyer</button>
+  </form>
+
+  <div id="rsvp-success">
+    <p data-i18n="success_msg" style="margin:0;">Merci ! Votre réponse a bien été enregistrée.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const translations = {
+    fr: {
+      back_link: "← Retour au site",
+      rsvp_deadline: "Merci de répondre avant le 30 janvier 2027 — une réponse par invité(e).",
+      label_nom: "Nom",
+      label_prenom: "Prénom",
+      label_email: "Email",
+      label_presence: "Serez-vous présent(e) ?",
+      yes: "Oui",
+      no: "Non",
+      label_vege: "Régime végétarien ?",
+      label_allergies: "Allergie alimentaire ?",
+      label_allergies_detail: "Précisez",
+      label_comment: "Un mot pour nous ?",
+      submit: "Envoyer",
+      success_msg: "Merci ! Votre réponse a bien été enregistrée.",
+      error_required: "Merci de remplir ce champ.",
+      error_email: "Merci d'indiquer un email valide.",
+      error_generic: "Une erreur est survenue, merci de réessayer."
+    },
+    es: {
+      back_link: "← Volver al sitio",
+      rsvp_deadline: "Por favor, confirme antes del 30 de enero de 2027 — una respuesta por invitado/a.",
+      label_nom: "Apellido",
+      label_prenom: "Nombre",
+      label_email: "Correo electrónico",
+      label_presence: "¿Asistirá?",
+      yes: "Sí",
+      no: "No",
+      label_vege: "¿Dieta vegetariana?",
+      label_allergies: "¿Alguna alergia alimentaria?",
+      label_allergies_detail: "Especifique",
+      label_comment: "¿Algo que quiera decirnos?",
+      submit: "Enviar",
+      success_msg: "¡Gracias! Su respuesta ha sido registrada.",
+      error_required: "Por favor, complete este campo.",
+      error_email: "Indique un correo válido.",
+      error_generic: "Ocurrió un error, inténtelo de nuevo."
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+    });
+    document.getElementById('lang-fr').setAttribute('aria-pressed', String(lang === 'fr'));
+    document.getElementById('lang-es').setAttribute('aria-pressed', String(lang === 'es'));
+  }
+
+  document.getElementById('lang-fr').addEventListener('click', function(){ applyLang('fr'); });
+  document.getElementById('lang-es').addEventListener('click', function(){ applyLang('es'); });
+
+  const storage = window.storage || {
+    async get(key){ try { const v = localStorage.getItem(key); return v ? {key:key, value:v} : null; } catch(e){ return null; } },
+    async set(key, value){ try { localStorage.setItem(key, value); return {key:key, value:value}; } catch(e){ return null; } },
+    async delete(key){ try { localStorage.removeItem(key); return {key:key, deleted:true}; } catch(e){ return null; } },
+    async list(prefix){ try { const keys = Object.keys(localStorage).filter(function(k){ return !prefix || k.indexOf(prefix) === 0; }); return {keys:keys}; } catch(e){ return {keys:[]}; } }
+  };
+
+  const form = document.getElementById('rsvp-form');
+  const successBox = document.getElementById('rsvp-success');
+  const allergiesDetailWrap = document.getElementById('allergies-detail-wrap');
+
+  document.querySelectorAll('input[name="allergies"]').forEach(function(r){
+    r.addEventListener('change', function(){
+      allergiesDetailWrap.style.display = (this.value === 'oui') ? 'block' : 'none';
+    });
+  });
+
+  function setError(id, key){
+    const el = document.getElementById(id);
+    if (el) el.textContent = translations[currentLang][key];
+  }
+  function clearErrors(){
+    document.querySelectorAll('.field-error').forEach(function(el){ el.textContent = ''; });
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    clearErrors();
+
+    const data = new FormData(form);
+    const nom = (data.get('nom') || '').trim();
+    const prenom = (data.get('prenom') || '').trim();
+    const email = (data.get('email') || '').trim();
+    const presence = data.get('presence');
+    const vege = data.get('vege');
+    const allergies = data.get('allergies');
+    const allergiesDetail = (data.get('allergies_detail') || '').trim();
+    const comment = (data.get('comment') || '').trim();
+
+    let hasError = false;
+    if (!nom){ setError('err-nom','error_required'); hasError = true; }
+    if (!prenom){ setError('err-prenom','error_required'); hasError = true; }
+    if (!email){ setError('err-email','error_required'); hasError = true; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setError('err-email','error_email'); hasError = true; }
+    if (!presence){ setError('err-presence','error_required'); hasError = true; }
+    if (!vege){ setError('err-vege','error_required'); hasError = true; }
+    if (!allergies){ setError('err-allergies','error_required'); hasError = true; }
+    if (allergies === 'oui' && !allergiesDetail){ setError('err-allergies-detail','error_required'); hasError = true; }
+
+    if (hasError) return;
+
+    const entry = {
+      nom: nom, prenom: prenom, email: email, presence: presence,
+      vege: vege, allergies: allergies, allergiesDetail: allergiesDetail,
+      comment: comment, lang: currentLang, submittedAt: new Date().toISOString()
+    };
+    const key = 'rsvp:' + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+
+    try {
+      await storage.set(key, JSON.stringify(entry), true);
+      form.style.display = 'none';
+      successBox.style.display = 'block';
+    } catch(err){
+      setError('err-form','error_generic');
+    }
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialLang = urlParams.get('lang') === 'es' ? 'es' : 'fr';
+  applyLang(initialLang);
+})();
+</script>
+</body>
+</html>
