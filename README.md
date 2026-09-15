@@ -22,3 +22,6 @@ Site de mariage — Diana & Guillaume — 3 juillet 2027
     via The Noun Project. Vérifier les conditions de licence/attribution
     selon votre usage (licence gratuite = attribution visible requise,
     licence Pro = pas d'attribution nécessaire).
+
+  NETFILY
+    Utiliser les Deploy Previews au lieu des Deploys afin d'économiser des crédits.
