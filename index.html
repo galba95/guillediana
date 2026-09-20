@@ -66,16 +66,16 @@ html.first-visit-animation .intro-photo{
   opacity:0;
   transform:translateY(var(--intro-from-y,0px));
   animation:
-    heroFade 2.8s ease var(--intro-delay,0s) forwards,
-    heroSlide 2.2s cubic-bezier(.16,1,.3,1) calc(var(--intro-delay,0s) + 2.8s) forwards;
+    heroFade 1.2s ease var(--intro-delay,0s) forwards,
+    heroSlide 1s cubic-bezier(.16,1,.3,1) calc(var(--intro-delay,0s) + 1.2s) forwards;
 }
 html.first-visit-animation .intro-item-1{--intro-delay:0s}
-html.first-visit-animation .intro-item-2{--intro-delay:5s;position:relative;z-index:1}
-html.first-visit-animation .intro-item-3{--intro-delay:10s;position:relative;z-index:2}
+html.first-visit-animation .intro-item-2{--intro-delay:2.2s;position:relative;z-index:1}
+html.first-visit-animation .intro-item-3{--intro-delay:4.4s;position:relative;z-index:2}
 html.first-visit-animation .intro-photo{
-  --intro-delay:15s;
+  --intro-delay:6.6s;
   transform:none;
-  animation:heroFade 2.8s ease 15s forwards;
+  animation:heroFade 1.2s ease 6.6s forwards;
 }
 html.first-visit-animation .hero-side-floral{
   opacity:0;
@@ -89,13 +89,14 @@ html.first-visit-animation .hero{
 @keyframes heroSlide{from{opacity:1;transform:translateY(var(--intro-from-y,0px))}to{opacity:1;transform:translateY(0)}}
 
 html.first-visit-animation .countdown-section{opacity:0}
+html.first-visit-animation .countdown-line{opacity:0}
 html.countdown-ready .countdown-section{opacity:1}
-html.countdown-ready .countdown-line{animation:countdownLineReveal 1.1s ease forwards}
+html.countdown-ready .countdown-line{animation:countdownLineReveal .8s ease forwards}
 html.countdown-ready .countdown-line:nth-child(1){animation-delay:0s}
-html.countdown-ready .countdown-line:nth-child(2){animation-delay:1.5s}
-html.countdown-ready .countdown-line:nth-child(3){animation-delay:3s}
-html.countdown-ready .countdown-line:nth-child(4){animation-delay:4.5s}
-html.countdown-ready .countdown-line:nth-child(5){animation-delay:6s}
+html.countdown-ready .countdown-line:nth-child(2){animation-delay:.8s}
+html.countdown-ready .countdown-line:nth-child(3){animation-delay:1.6s}
+html.countdown-ready .countdown-line:nth-child(4){animation-delay:2.4s}
+html.countdown-ready .countdown-line:nth-child(5){animation-delay:3.2s}
 @keyframes countdownLineReveal{from{opacity:0}to{opacity:1}}
 
 html.site-reveal #rsvp,
@@ -159,12 +160,12 @@ if(firstVisit){
   /* 1-6 : trois blocs successifs, chacun fade puis slide avant le suivant. */
   /* 7 : photo, uniquement en fade, après la fin du troisième slide. */
   /* 8-12 : cinq lignes successives, chacune en fade après la photo. */
-  window.setTimeout(function(){document.documentElement.classList.add('countdown-ready')},18200);
-  window.setTimeout(function(){document.documentElement.classList.add('site-reveal')},25400);
+  window.setTimeout(function(){document.documentElement.classList.add('countdown-ready')},7800);
+  window.setTimeout(function(){document.documentElement.classList.add('site-reveal')},11800);
   window.setTimeout(function(){
     document.documentElement.classList.remove('first-visit-animation');
     window.removeEventListener('resize',positionIntroItems);
-  },26100);
+  },12500);
 }
 })();
 </script>
