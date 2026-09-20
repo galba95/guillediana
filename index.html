@@ -63,20 +63,20 @@ html.first-visit-animation .intro-item,
 html.first-visit-animation .intro-photo{
   opacity:0;
   transform:translateY(var(--intro-from-y,0px));
-  animation:heroIntroSlide 3.4s cubic-bezier(.12,1,.28,1) forwards;
+  animation:heroIntroSlide 4.6s cubic-bezier(.12,1,.28,1) forwards;
   animation-delay:var(--intro-delay,0s);
 }
 html.first-visit-animation .intro-item-1{--intro-delay:0s}
-html.first-visit-animation .intro-item-2{--intro-delay:3.9s}
-html.first-visit-animation .intro-item-3{--intro-delay:7.8s}
-html.first-visit-animation .intro-photo{--intro-delay:11.7s}
+html.first-visit-animation .intro-item-2{--intro-delay:3.6s}
+html.first-visit-animation .intro-item-3{--intro-delay:7.2s}
+html.first-visit-animation .intro-photo{--intro-delay:10.8s}
 html.first-visit-animation .hero-side-floral{
   opacity:0;
-  animation:heroFadeIn 3.4s cubic-bezier(.22,1,.36,1) 0s forwards
+  animation:heroFadeIn 4.6s cubic-bezier(.22,1,.36,1) 0s forwards
 }
 @keyframes heroIntroSlide{
   0%{opacity:0;transform:translateY(var(--intro-from-y,0px))}
-  55%{opacity:1;transform:translateY(var(--intro-from-y,0px))}
+  65%{opacity:1;transform:translateY(var(--intro-from-y,0px))}
   100%{opacity:1;transform:translateY(0)}
 }
 @keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
@@ -124,7 +124,7 @@ if(firstVisit){
       document.documentElement.classList.remove('intro-finished');
       window.removeEventListener('resize',positionIntroItems);
     },700);
-  },15200);
+  },15500);
 }
 })();
 </script>
