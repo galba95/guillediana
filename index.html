@@ -178,7 +178,6 @@ if(firstVisit){
   document.querySelectorAll('[data-choice-lang]').forEach(function(button){
     button.addEventListener('click',function(){
       applyLang(button.getAttribute('data-choice-lang'));
-      try{localStorage.setItem('hero-intro-seen','1')}catch(e){}
       startFirstVisitAnimation();
     },{once:true});
   });
