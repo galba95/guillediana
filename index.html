@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Italianno&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<script>(function(){try{if(!localStorage.getItem('hero-intro-seen'))document.documentElement.classList.add('first-visit-animation')}catch(e){}})();</script>
+<script>(function(){try{if(!localStorage.getItem('hero-intro-seen'))document.documentElement.classList.add('first-visit-pending')}catch(e){}})();</script>
 <style>
 :root{color-scheme:light;--blue:#738B78;--blue-deep:#29414D;--bordeaux:#71889A;--bordeaux-deep:#56707F;--sand:#C4A46B;--sand-light:#F0ECE1;--cream:#F5F3EE;--ink:#26323C;--ink-soft:#5B6772;--white:#fff;--serif:'Cormorant Garamond',Georgia,serif;--script:'Italianno','Cormorant Garamond',cursive;--body:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:760px;--max-wide:1300px}
 html,body{background:var(--cream)!important;color:var(--ink)!important;color-scheme:light!important}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--body);font-size:18px;line-height:1.55}a{color:var(--bordeaux)}h1,h2,h3{margin:0;color:var(--blue-deep);font-family:var(--script);font-weight:400;line-height:1}h1{font-size:clamp(4rem,9vw,7rem)}h2{font-size:clamp(3rem,6vw,4.5rem);text-align:center;margin-bottom:.5em}h3{font-family:var(--serif);font-size:1.45rem;font-weight:600}p{margin:0 0 1em}.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}.wrap-wide{max-width:var(--max-wide);margin:0 auto;padding:0 32px}section{padding:78px 0}.section-alt{background:var(--sand-light)}.center{text-align:center}
@@ -142,11 +142,12 @@ const translations={fr:{nav_programme:'Programme',nav_faq:'FAQ',nav_histoire:'No
 let currentLang=localStorage.getItem('site-lang')||'fr';const target=new Date('2027-07-03T00:00:00');
 function countdownValues(){const now=new Date();let months=(target.getFullYear()-now.getFullYear())*12+(target.getMonth()-now.getMonth());let anchor=new Date(now);anchor.setMonth(anchor.getMonth()+months);if(anchor>target){months--;anchor=new Date(now);anchor.setMonth(anchor.getMonth()+months)}const days=Math.max(0,Math.ceil((target-anchor)/86400000));return{months:Math.max(0,months),days:days}}
 function updateCountdown(){const v=countdownValues(),t=translations[currentLang],el=document.getElementById('countdown-text');var lines=t.countdown_prefix.split('<br>');el.innerHTML=lines.map(function(line,i){var content=line;if(i===lines.length-1){content+='<span>'+v.months+'</span>'+t.countdown_mid+'<span>'+v.days+'</span>'+t.countdown_suffix}return '<span class="countdown-line">'+content+'</span>'}).join('')}
-function applyLang(lang){currentLang=lang;localStorage.setItem('site-lang',lang);document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){const key=el.getAttribute('data-i18n');if(translations[lang][key]!==undefined)el.textContent=translations[lang][key]});document.getElementById('lang-fr').setAttribute('aria-pressed',String(lang==='fr'));document.getElementById('lang-es').setAttribute('aria-pressed',String(lang==='es'));updateCountdown();if(!document.documentElement.classList.contains('first-visit-animation')){document.documentElement.classList.add('countdown-ready');document.querySelectorAll('.countdown-line').forEach(function(line){line.style.opacity='1';line.style.animation='none'})}}
+function applyLang(lang){currentLang=lang;localStorage.setItem('site-lang',lang);document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){const key=el.getAttribute('data-i18n');if(translations[lang][key]!==undefined)el.textContent=translations[lang][key]});document.getElementById('lang-fr').setAttribute('aria-pressed',String(lang==='fr'));document.getElementById('lang-es').setAttribute('aria-pressed',String(lang==='es'));updateCountdown();if(!document.documentElement.classList.contains('first-visit-animation')&&!document.documentElement.classList.contains('first-visit-pending')){document.documentElement.classList.add('countdown-ready');document.querySelectorAll('.countdown-line').forEach(function(line){line.style.opacity='1';line.style.animation='none'})}}
 document.getElementById('lang-fr').addEventListener('click',function(){applyLang('fr')});document.getElementById('lang-es').addEventListener('click',function(){applyLang('es')});window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('visible',window.scrollY>120)});applyLang(currentLang);setInterval(updateCountdown,60000);
-var firstVisit=document.documentElement.classList.contains('first-visit-animation');
+var firstVisit=document.documentElement.classList.contains('first-visit-pending');
 function startFirstVisitAnimation(){
-  document.documentElement.classList.remove('language-choice-open');
+  document.documentElement.classList.add('first-visit-animation');
+  document.documentElement.classList.remove('first-visit-pending','language-choice-open');
   var choice=document.getElementById('language-choice');
   if(choice)choice.remove();
 
@@ -177,6 +178,7 @@ if(firstVisit){
   document.documentElement.classList.add('language-choice-open');
   document.querySelectorAll('[data-choice-lang]').forEach(function(button){
     button.addEventListener('click',function(){
+      document.documentElement.classList.add('first-visit-animation');
       applyLang(button.getAttribute('data-choice-lang'));
       startFirstVisitAnimation();
     },{once:true});
