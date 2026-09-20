@@ -38,7 +38,7 @@ html,body{background:var(--cream)!important;color:var(--ink)!important;color-sch
  .wrap-wide{padding-left:0;padding-right:0}
  .photo-section{padding-bottom:35px}
  .photo-section:first-of-type{padding:0 0 24px}
- .photo-section img{border-radius:0;aspect-ratio:16/9;max-height:calc(100svh - 300px);object-fit:cover}
+ .photo-section img{border-radius:0;aspect-ratio:16/9;object-fit:cover}
  .feature-grid{padding:0;gap:30px}
  .feature-media{width:100vw;margin-left:calc(50% - 50vw)}
  .feature-media img{width:100%;min-height:0;height:auto;border-radius:0;aspect-ratio:auto}
@@ -52,59 +52,28 @@ html,body{background:var(--cream)!important;color:var(--ink)!important;color-sch
 }
 @media(prefers-color-scheme:dark){html,body{background:#F5F3EE!important;color:#26323C!important}h1,h2,h3{color:#29414D!important}.nav{background:rgba(251,247,240,.98)!important}.nav a{color:#26323C!important}.section-alt{background:#F0ECE1!important}footer{background:#29414D!important}}
 
+html.first-visit-animation .countdown-section,html.first-visit-animation #rsvp,html.first-visit-animation #programme,html.first-visit-animation #faq,html.first-visit-animation #histoire,html.first-visit-animation #liste-mariage,html.first-visit-animation footer{opacity:0}
+html.intro-finished .countdown-section,html.intro-finished #rsvp,html.intro-finished #programme,html.intro-finished #faq,html.intro-finished #histoire,html.intro-finished #liste-mariage,html.intro-finished footer{opacity:0;animation:introReveal .7s ease forwards}
+html.first-visit-animation .photo-section:first-of-type{min-height:0}
+html.first-visit-animation .intro-photo{will-change:transform,opacity}
+@keyframes introReveal{from{opacity:0}to{opacity:1}}
+
 /* First-visit opening animation */
-html.first-visit-animation .hero h1,
-html.first-visit-animation .hero-date,
-html.first-visit-animation .hero-place,
-html.first-visit-animation .hero .floral,
-html.first-visit-animation .hero-side-floral,
+html.first-visit-animation .intro-item,
 html.first-visit-animation .intro-photo{
   opacity:0;
-  animation-fill-mode:both;
+  transform:translateY(var(--intro-from-y,0px));
+  animation:heroIntroSlide 1.5s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay:var(--intro-delay,0s);
 }
-
-/* Strict sequence: title -> first floral -> date -> place -> second floral -> couple photo */
-html.first-visit-animation .hero h1{
-  animation:heroFadeIn 1.7s cubic-bezier(.22,1,.36,1) .2s forwards;
-}
-html.first-visit-animation .hero .floral:first-of-type{
-  animation:heroFadeIn 1.6s cubic-bezier(.22,1,.36,1) 2.45s forwards;
-}
-html.first-visit-animation .hero-date{
-  animation:heroFadeUp 1.6s cubic-bezier(.22,1,.36,1) 4.55s forwards;
-}
-html.first-visit-animation .hero-place{
-  animation:heroFadeUp 1.6s cubic-bezier(.22,1,.36,1) 6.65s forwards;
-}
-html.first-visit-animation .hero .floral-tight{
-  animation:heroFadeIn 1.6s cubic-bezier(.22,1,.36,1) 8.75s forwards;
-}
-html.first-visit-animation .hero-side-floral{
-  animation:heroFadeIn 1.6s cubic-bezier(.22,1,.36,1) 2.45s forwards;
-}
-html.first-visit-animation .intro-photo{
-  animation:heroFadeIn 1.9s cubic-bezier(.22,1,.36,1) 10.85s forwards;
-}
-
-@keyframes heroFadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-@keyframes heroFadeUp{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@media(prefers-reduced-motion:reduce){
- html.first-visit-animation .hero h1,
- html.first-visit-animation .hero-date,
- html.first-visit-animation .hero-place,
- html.first-visit-animation .hero .floral,
- html.first-visit-animation .hero-side-floral,
- html.first-visit-animation .intro-photo{
-   opacity:1;
-   animation:none!important;
- }
-}
+html.first-visit-animation .intro-item-1{--intro-delay:0s}
+html.first-visit-animation .intro-item-2{--intro-delay:1.5s}
+html.first-visit-animation .intro-item-3{--intro-delay:3s}
+html.first-visit-animation .intro-photo{--intro-delay:4.5s}
+html.first-visit-animation .hero-side-floral{opacity:0;animation:heroFadeIn 1.5s cubic-bezier(.22,1,.36,1) 0s forwards}
+@keyframes heroIntroSlide{from{opacity:0;transform:translateY(var(--intro-from-y,0px))}to{opacity:1;transform:translateY(0)}}
+@keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){html.first-visit-animation .intro-item,html.first-visit-animation .intro-photo,html.first-visit-animation .hero-side-floral{opacity:1;transform:none;animation:none!important}}
 </style>
 </head>
 <body>
@@ -112,7 +81,7 @@ html.first-visit-animation .intro-photo{
 <a href="#programme" data-i18n="nav_programme">Programme</a><a href="rsvp.html" target="_blank" rel="noopener">RSVP</a><a href="#faq" data-i18n="nav_faq">FAQ</a><a href="#liste-mariage" data-i18n="nav_liste">Liste</a><a href="#histoire" data-i18n="nav_histoire">Notre histoire</a>
 <div class="langgroup" role="group" aria-label="Choix de langue / Selección de idioma"><button id="lang-fr" type="button" aria-pressed="true">FR</button><button id="lang-es" type="button" aria-pressed="false">ES</button></div>
 </nav>
-<section class="hero"><img class="hero-side-floral left" src="hero-floral.svg" alt="" aria-hidden="true"><img class="hero-side-floral right" src="hero-floral.svg" alt="" aria-hidden="true"><div class="wrap"><h1>Diana &amp; Guillaume</h1><svg class="floral" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true"><line x1="0" y1="35" x2="55" y2="35" stroke="#4E6355"/><line x1="165" y1="35" x2="220" y2="35" stroke="#4E6355"/><path d="M60,35 C66,28 76,28 82,35 C76,42 66,42 60,35 Z" fill="none" stroke="#4E6355"/><path d="M138,35 C144,28 154,28 160,35 C154,42 144,42 138,35 Z" fill="none" stroke="#4E6355"/><g fill="none" stroke="#4E6355"><ellipse cx="110" cy="22" rx="6" ry="10"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(72 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(144 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(216 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(288 110 32)"/></g><circle cx="110" cy="32" r="3" fill="#4E6355"/></svg><p class="hero-date" data-i18n="hero_date">Samedi 3 juillet 2027</p><p class="hero-place"><span data-i18n="hero_place_a">Château de Bertreville</span><span class="dot">&middot;</span><span data-i18n="hero_place_b">76590 Bertreville-Saint-Ouen</span></p><svg class="floral floral-tight" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true"><line x1="0" y1="35" x2="55" y2="35" stroke="#4E6355"/><line x1="165" y1="35" x2="220" y2="35" stroke="#4E6355"/><path d="M60,35 C66,28 76,28 82,35 C76,42 66,42 60,35 Z" fill="none" stroke="#4E6355"/><path d="M138,35 C144,28 154,28 160,35 C154,42 144,42 138,35 Z" fill="none" stroke="#4E6355"/><g fill="none" stroke="#4E6355"><ellipse cx="110" cy="22" rx="6" ry="10"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(72 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(144 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(216 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(288 110 32)"/></g><circle cx="110" cy="32" r="3" fill="#4E6355"/></svg></div></section>
+<section class="hero"><img class="hero-side-floral left" src="hero-floral.svg" alt="" aria-hidden="true"><img class="hero-side-floral right" src="hero-floral.svg" alt="" aria-hidden="true"><div class="wrap"><div class="intro-item intro-item-1"><h1>Diana &amp; Guillaume</h1><svg class="floral" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true"><line x1="0" y1="35" x2="55" y2="35" stroke="#4E6355"/><line x1="165" y1="35" x2="220" y2="35" stroke="#4E6355"/><path d="M60,35 C66,28 76,28 82,35 C76,42 66,42 60,35 Z" fill="none" stroke="#4E6355"/><path d="M138,35 C144,28 154,28 160,35 C154,42 144,42 138,35 Z" fill="none" stroke="#4E6355"/><g fill="none" stroke="#4E6355"><ellipse cx="110" cy="22" rx="6" ry="10"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(72 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(144 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(216 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(288 110 32)"/></g><circle cx="110" cy="32" r="3" fill="#4E6355"/></svg></div><div class="intro-item intro-item-2"><p class="hero-date" data-i18n="hero_date">Samedi 3 juillet 2027</p></div><div class="intro-item intro-item-3"><p class="hero-place"><span data-i18n="hero_place_a">Château de Bertreville</span><span class="dot">&middot;</span><span data-i18n="hero_place_b">76590 Bertreville-Saint-Ouen</span></p><svg class="floral floral-tight" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true"><line x1="0" y1="35" x2="55" y2="35" stroke="#4E6355"/><line x1="165" y1="35" x2="220" y2="35" stroke="#4E6355"/><path d="M60,35 C66,28 76,28 82,35 C76,42 66,42 60,35 Z" fill="none" stroke="#4E6355"/><path d="M138,35 C144,28 154,28 160,35 C154,42 144,42 138,35 Z" fill="none" stroke="#4E6355"/><g fill="none" stroke="#4E6355"><ellipse cx="110" cy="22" rx="6" ry="10"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(72 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(144 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(216 110 32)"/><ellipse cx="110" cy="22" rx="6" ry="10" transform="rotate(288 110 32)"/></g><circle cx="110" cy="32" r="3" fill="#4E6355"/></svg></div></div></section>
 <section class="photo-section"><div class="wrap-wide"><picture><source srcset="photo-couple.webp" type="image/webp"><img class="intro-photo" src="photo-couple.jpg" alt="Diana et Guillaume"></picture></div></section>
 <section class="countdown-section"><div class="wrap center"><p class="countdown-text" id="countdown-text"></p></div></section>
 <section id="rsvp" class="section-alt"><div class="wrap center rsvp-teaser"><h2 data-i18n="rsvp_title">RSVP</h2><p data-i18n="rsvp_teaser_text">Merci de nous dire si vous serez des nôtres.</p><p data-i18n="rsvp_deadline">Réponse attendue avant le 30 janvier 2027 — une réponse par invité(e).</p><a href="rsvp.html" target="_blank" rel="noopener" class="btn" data-i18n="rsvp_button">Répondre</a></div></section>
@@ -124,7 +93,7 @@ html.first-visit-animation .intro-photo{
 <footer><p>Diana &amp; Guillaume — 3 juillet 2027</p></footer>
 <script>
 (function(){
-const translations={fr:{nav_programme:'Programme',nav_faq:'FAQ',nav_histoire:'Notre histoire',nav_liste:'Liste',envelope_hint:'Touchez le sceau pour ouvrir',envelope_skip:'Passer',hero_date:'Samedi 3 juillet 2027',hero_place_a:'Château de Bertreville',hero_place_b:'76590 Bertreville-Saint-Ouen',rsvp_title:'RSVP',rsvp_teaser_text:'Merci de nous dire si vous serez des nôtres.',rsvp_deadline:'Réponse attendue avant le 30 janvier 2027 — une réponse par invité(e).',rsvp_button:'Répondre',programme_title:'Programme',ceremony_label:'Cérémonie religieuse',reception_time:'17h30',reception_line:'Réception — Cocktail, dîner, soirée',reception_place:'Château de Bertreville',reception_address:'Rte de la Mairie, 76590 Bertreville-Saint-Ouen',brunch_time:'11h30 le lendemain',brunch_label:'Brunch',brunch_place:'Château de Bertreville',maps_cta:'Voir sur Google Maps',end_note:'Heure de fin de la soirée : cela ne dépendra que de vous !',faq_title:'FAQ',faq_parking_q:'🅿️ Parking',faq_parking_a:"Un parking est disponible au château et à proximité de l'église.",faq_sleep_q:'🏨 Où dormir ?',faq_sleep_a:"Nous vous partagerons prochainement quelques adresses d'hôtels et de chambres d'hôtes à proximité du château.",faq_return_q:'🚕 Retour après la soirée',faq_return_a:'Un taxi effectuera des trajets à partir de 01h et jusqu\'à 04h du matin.',faq_babysitter_q:'👶 Babysitter',faq_babysitter_a:'Oui, une solution de babysitting sera prévue pour les enfants.',faq_plusone_q:'➕1 autorisé ?',faq_plusone_a:'Malheureusement non, sauf si votre +1 figure dans la liste des invités.',faq_weather_q:'☀️ Météo',faq_weather_a1:"Si la météo le permet, le cocktail et le brunch auront lieu en extérieur dans le parc du château. Si la pluie s'invite à la fête, ils auront lieu à l'intérieur du château.",faq_weather_a2:"Le dîner et la soirée auront lieu à l'intérieur du château.",story_title:'Notre histoire',story_placeholder:'— Texte à venir —',liste_title:'Liste',liste_text:'Bien entendu, votre présence est le plus beau des cadeaux.',liste_text2:'Si vous souhaitez tout de même participer à notre voyage de noces en Colombie 🇨🇴, voici le lien vers la cagnotte.',liste_button:'Accéder à la cagnotte',liste_closing:'Nous avons hâte de vous retrouver pour cette merveilleuse journée !',countdown_prefix:"Une rencontre en Colombie, plusieurs années séparés par un océan, des retrouvailles en France avec la construction d'un projet commun ... et nous voilà prêts à célébrer notre amour avec vous dans ",countdown_mid:' mois et ',countdown_suffix:' jours !'},es:{nav_programme:'Programa',nav_faq:'FAQ',nav_histoire:'Nuestra historia',nav_liste:'Lista',envelope_hint:'Toque el sello para abrir',envelope_skip:'Omitir',hero_date:'Sábado 3 de julio de 2027',hero_place_a:'Castillo de Bertreville',hero_place_b:'76590 Bertreville-Saint-Ouen',rsvp_title:'RSVP',rsvp_teaser_text:'Cuéntenos si nos acompañará.',rsvp_deadline:'Respuesta esperada antes del 30 de enero de 2027 — una respuesta por invitado/a.',rsvp_button:'Confirmar asistencia',programme_title:'Programa',ceremony_label:'Ceremonia religiosa',reception_time:'17:30 h',reception_line:'Recepción — Cóctel, cena, fiesta',reception_place:'Castillo de Bertreville',reception_address:'Rte de la Mairie, 76590 Bertreville-Saint-Ouen',brunch_time:'11:30 h al día siguiente',brunch_label:'Brunch',brunch_place:'Castillo de Bertreville',maps_cta:'Ver en Google Maps',end_note:'Hora de finalización de la fiesta: ¡dependerá solo de ustedes!',faq_title:'FAQ',faq_parking_q:'🅿️ Aparcamiento',faq_parking_a:'Hay aparcamiento disponible en el castillo y cerca de la iglesia.',faq_sleep_q:'🏨 ¿Dónde dormir?',faq_sleep_a:'Próximamente compartiremos algunas direcciones de hoteles y casas de huéspedes cerca del castillo.',faq_return_q:'🚕 Regreso después de la fiesta',faq_return_a:'Un taxi realizará trayectos desde la 01:00 hasta las 04:00 de la madrugada.',faq_babysitter_q:'👶 Babysitter',faq_babysitter_a:'Sí, habrá una solución de babysitting prevista para los niños.',faq_plusone_q:'➕1 permitido?',faq_plusone_a:'Desafortunadamente no, salvo que su acompañante figure en la lista de invitados.',faq_weather_q:'☀️ Tiempo',faq_weather_a1:'Si el tiempo lo permite, el cóctel y el brunch tendrán lugar al aire libre en el parque del castillo. Si la lluvia se invita a la fiesta, tendrán lugar dentro del castillo.',faq_weather_a2:'La cena y la fiesta tendrán lugar en el interior del castillo.',story_title:'Nuestra historia',story_placeholder:'— Texto próximamente —',liste_title:'Lista',liste_text:'Por supuesto, su presencia es el mejor regalo.',liste_text2:'Si aun así desea contribuir a nuestro viaje de bodas en Colombia 🇨🇴, aquí está el enlace a la hucha.',liste_button:'Ir a la hucha',liste_closing:'¡Estamos deseando volver a verles para compartir este día tan maravilloso!',countdown_prefix:'Un encuentro en Colombia, varios años separados por un océano, reencuentros en Francia construyendo un proyecto juntos ... y ahora estamos listos para celebrar nuestro amor con ustedes dentro de ',countdown_mid:' meses y ',countdown_suffix:' días!'}};
+const translations={fr:{nav_programme:'Programme',nav_faq:'FAQ',nav_histoire:'Notre histoire',nav_liste:'Liste',envelope_hint:'Touchez le sceau pour ouvrir',envelope_skip:'Passer',hero_date:'Samedi 3 juillet 2027',hero_place_a:'Château de Bertreville',hero_place_b:'76590 Bertreville-Saint-Ouen',rsvp_title:'RSVP',rsvp_teaser_text:'Merci de nous dire si vous serez des nôtres.',rsvp_deadline:'Réponse attendue avant le 30 janvier 2027 — une réponse par invité(e).',rsvp_button:'Répondre',programme_title:'Programme',ceremony_label:'Cérémonie religieuse',reception_time:'17h30',reception_line:'Réception — Cocktail, dîner, soirée',reception_place:'Château de Bertreville',reception_address:'Rte de la Mairie, 76590 Bertreville-Saint-Ouen',brunch_time:'11h30 le lendemain',brunch_label:'Brunch',brunch_place:'Château de Bertreville',maps_cta:'Voir sur Google Maps',end_note:'Heure de fin de la soirée : cela ne dépendra que de vous !',faq_title:'FAQ',faq_parking_q:'🅿️ Parking',faq_parking_a:"Un parking est disponible au château et à proximité de l'église.",faq_sleep_q:'🏨 Où dormir ?',faq_sleep_a:"Nous vous partagerons prochainement quelques adresses d'hôtels et de chambres d'hôtes à proximité du château.",faq_return_q:'🚕 Retour après la soirée',faq_return_a:'Un taxi effectuera des trajets à partir de 01h et jusqu\'à 04h du matin.',faq_babysitter_q:'👶 Babysitter',faq_babysitter_a:'Oui, une solution de babysitting sera prévue pour les enfants.',faq_plusone_q:'➕1 autorisé ?',faq_plusone_a:'Malheureusement non, sauf si votre +1 figure dans la liste des invités.',faq_weather_q:'☀️ Météo',faq_weather_a1:"Si la météo le permet, le cocktail et le brunch auront lieu en extérieur dans le parc du château. Si la pluie s'invite à la fête, ils auront lieu à l'intérieur du château.",faq_weather_a2:"Le dîner et la soirée auront lieu à l'intérieur du château.",story_title:'Notre histoire',story_placeholder:'— Texte à venir —',liste_title:'Liste',liste_text:'Bien entendu, votre présence est le plus beau des cadeaux.',liste_text2:'Si vous souhaitez tout de même participer à notre voyage de noces en Colombie 🇨🇴, voici le lien vers la cagnotte.',liste_button:'Accéder à la cagnotte',liste_closing:'Nous avons hâte de vous retrouver pour cette merveilleuse journée !',countdown_prefix:"Après une première rencontre en Colombie...<br>... plusieurs années séparés par un océan ...<br>... puis des retrouvailles en France tant attendues...<br>... et depuis, la construction d'un projet de vie commun ...<br>... nous célébrons notre amour avec vous dans ",countdown_mid:' mois et ',countdown_suffix:' jours !'},es:{nav_programme:'Programa',nav_faq:'FAQ',nav_histoire:'Nuestra historia',nav_liste:'Lista',envelope_hint:'Toque el sello para abrir',envelope_skip:'Omitir',hero_date:'Sábado 3 de julio de 2027',hero_place_a:'Castillo de Bertreville',hero_place_b:'76590 Bertreville-Saint-Ouen',rsvp_title:'RSVP',rsvp_teaser_text:'Cuéntenos si nos acompañará.',rsvp_deadline:'Respuesta esperada antes del 30 de enero de 2027 — una respuesta por invitado/a.',rsvp_button:'Confirmar asistencia',programme_title:'Programa',ceremony_label:'Ceremonia religiosa',reception_time:'17:30 h',reception_line:'Recepción — Cóctel, cena, fiesta',reception_place:'Castillo de Bertreville',reception_address:'Rte de la Mairie, 76590 Bertreville-Saint-Ouen',brunch_time:'11:30 h al día siguiente',brunch_label:'Brunch',brunch_place:'Castillo de Bertreville',maps_cta:'Ver en Google Maps',end_note:'Hora de finalización de la fiesta: ¡dependerá solo de ustedes!',faq_title:'FAQ',faq_parking_q:'🅿️ Aparcamiento',faq_parking_a:'Hay aparcamiento disponible en el castillo y cerca de la iglesia.',faq_sleep_q:'🏨 ¿Dónde dormir?',faq_sleep_a:'Próximamente compartiremos algunas direcciones de hoteles y casas de huéspedes cerca del castillo.',faq_return_q:'🚕 Regreso después de la fiesta',faq_return_a:'Un taxi realizará trayectos desde la 01:00 hasta las 04:00 de la madrugada.',faq_babysitter_q:'👶 Babysitter',faq_babysitter_a:'Sí, habrá una solución de babysitting prevista para los niños.',faq_plusone_q:'➕1 permitido?',faq_plusone_a:'Desafortunadamente no, salvo que su acompañante figure en la lista de invitados.',faq_weather_q:'☀️ Tiempo',faq_weather_a1:'Si el tiempo lo permite, el cóctel y el brunch tendrán lugar al aire libre en el parque del castillo. Si la lluvia se invita a la fiesta, tendrán lugar dentro del castillo.',faq_weather_a2:'La cena y la fiesta tendrán lugar en el interior del castillo.',story_title:'Nuestra historia',story_placeholder:'— Texto próximamente —',liste_title:'Lista',liste_text:'Por supuesto, su presencia es el mejor regalo.',liste_text2:'Si aun así desea contribuir a nuestro viaje de bodas en Colombia 🇨🇴, aquí está el enlace a la hucha.',liste_button:'Ir a la hucha',liste_closing:'¡Estamos deseando volver a verles para compartir este día tan maravilloso!',countdown_prefix:'Después de un primer encuentro en Colombia...<br>... varios años separados por un océano ...<br>... después, reencuentros en Francia tan esperados...<br>... y desde entonces, la construcción de un proyecto de vida juntos ...<br>... celebramos nuestro amor con ustedes dentro de ',countdown_mid:' meses y ',countdown_suffix:' días!'}};
 let currentLang=localStorage.getItem('site-lang')||'fr';const target=new Date('2027-07-03T00:00:00');
 function countdownValues(){const now=new Date();let months=(target.getFullYear()-now.getFullYear())*12+(target.getMonth()-now.getMonth());let anchor=new Date(now);anchor.setMonth(anchor.getMonth()+months);if(anchor>target){months--;anchor=new Date(now);anchor.setMonth(anchor.getMonth()+months)}const days=Math.max(0,Math.ceil((target-anchor)/86400000));return{months:Math.max(0,months),days:days}}
 function updateCountdown(){const v=countdownValues(),t=translations[currentLang],el=document.getElementById('countdown-text');el.innerHTML=t.countdown_prefix+'<span>'+v.months+'</span>'+t.countdown_mid+'<span>'+v.days+'</span>'+t.countdown_suffix}
@@ -133,27 +102,23 @@ document.getElementById('lang-fr').addEventListener('click',function(){applyLang
 var firstVisit=document.documentElement.classList.contains('first-visit-animation');
 if(firstVisit){
   try{localStorage.setItem('hero-intro-seen','1')}catch(e){}
-  var introPhoto=document.querySelector('.intro-photo');
-  function fitIntroPhoto(){
-    if(!introPhoto || window.innerWidth>720)return;
-    var hero=document.querySelector('.hero');
-    if(!hero)return;
-    var remaining=Math.max(180,Math.floor(window.innerHeight-hero.getBoundingClientRect().height));
-    introPhoto.style.height=remaining+'px';
-    introPhoto.style.width='100%';
-    introPhoto.style.objectFit='cover';
+  var introItems=document.querySelectorAll('.intro-item,.intro-photo');
+  function positionIntroItems(){
+    var centerY=window.innerHeight/2;
+    introItems.forEach(function(item){
+      item.style.setProperty('--intro-from-y',(centerY-(item.getBoundingClientRect().top+item.getBoundingClientRect().height/2))+'px');
+    });
   }
-  fitIntroPhoto();
-  window.addEventListener('resize',fitIntroPhoto);
+  positionIntroItems();
+  window.addEventListener('resize',positionIntroItems);
   window.setTimeout(function(){
-    document.documentElement.classList.remove('first-visit-animation');
-    if(introPhoto){
-      introPhoto.style.height='';
-      introPhoto.style.width='';
-      introPhoto.style.objectFit='';
-    }
-    window.removeEventListener('resize',fitIntroPhoto);
-  },12750);
+    document.documentElement.classList.add('intro-finished');
+    window.setTimeout(function(){
+      document.documentElement.classList.remove('first-visit-animation');
+      document.documentElement.classList.remove('intro-finished');
+      window.removeEventListener('resize',positionIntroItems);
+    },700);
+  },8000);
 }
 })();
 </script>
