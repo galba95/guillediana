@@ -5,7 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
 <meta name="supported-color-schemes" content="light">
-<title>Diana &amp; Guillaume — 3 juillet 2027</title>
+<title>Guillaume &amp; Diana — 3 juillet 2027</title>
+<meta name="description" content="Nous vous invitons à célébrer notre mariage · Los invitamos a celebrar nuestra boda — 3 juillet 2027, Château de Bertreville">
+<meta name="theme-color" content="#FBF7F0">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Guillaume &amp; Diana">
+<meta property="og:title" content="Guillaume &amp; Diana — 3 juillet 2027">
+<meta property="og:description" content="Nous vous invitons à célébrer notre mariage · Los invitamos a celebrar nuestra boda — 3 juillet 2027, Château de Bertreville">
+<meta property="og:url" content="https://guillediana.netlify.app/">
+<meta property="og:image" content="https://guillediana.netlify.app/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Diana et Guillaume">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.className+=' js'</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Gilda+Display&family=Inter:wght@400;500&family=Italianno&display=swap" rel="stylesheet">
@@ -85,7 +103,7 @@ main>.framed{width:calc(100% - 32px);max-width:1100px;margin:28px auto}
 .faq-item summary{cursor:pointer;list-style:none;padding:14px 4px;font-size:1rem;color:var(--blue-deep)}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary::after{content:'+';float:right;font-size:1.1rem;color:var(--gold)}
-.faq-item[open] summary::after{content:'−'}
+.faq-item[open] summary::after{transform:rotate(45deg)}
 .faq-answer{padding:0 4px 16px;color:var(--ink-soft);font-size:.9rem}
 .faq-answer p{margin:0 0 1em}.faq-answer p:last-child{margin-bottom:0}
 /* Liste */
@@ -93,6 +111,17 @@ main>.framed{width:calc(100% - 32px);max-width:1100px;margin:28px auto}
 .liste-closing{margin:22px 0 0!important}
 footer{background:var(--blue-deep);color:var(--sand-light);padding:40px 0;text-align:center;margin-top:40px}
 footer p{margin:0;font-family:var(--foot);font-style:italic;font-size:1.25rem}
+/* Animations discrètes (désactivées si l'appareil demande moins de mouvement) */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}
+.js .photo.rv{transform:none;transition-duration:1.1s}
+.js .rv.in{opacity:1;transform:none}
+.btn{transition:background .25s ease,transform .25s ease}.btn:hover{transform:translateY(-1px)}
+.maps-link{transition:color .2s ease,border-color .2s ease}.maps-link:hover{color:var(--blue-deep);border-color:var(--gold)}
+.faq-item summary::after{transition:transform .3s ease}
+:root{interpolate-size:allow-keywords}
+@supports selector(::details-content){.faq-item::details-content{block-size:0;overflow:clip;opacity:0;transition:block-size .35s ease,opacity .35s ease,content-visibility .35s allow-discrete}.faq-item[open]::details-content{block-size:auto;opacity:1}}
+.noanim,.noanim *,.noanim *::details-content{transition:none!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1!important;transform:none!important;transition:none!important}.btn,.maps-link,.faq-item summary::after,.faq-item::details-content{transition:none!important}}
 /* Grand écran : photo + section côte à côte */
 @media(min-width:768px){
 .hero{padding:72px 20px 52px}
@@ -131,30 +160,30 @@ h2{font-size:clamp(1.7rem,2.6vw,2.4rem)}
 <div class="langgroup" role="group" aria-label="Choix de langue / Selección de idioma"><button id="lang-fr" type="button" aria-pressed="true">FR</button><button id="lang-es" type="button" aria-pressed="false">ES</button></div>
 </nav>
 <main>
-<section class="hero"><h1>Guillaume &amp; Diana</h1></section>
+<section class="hero"><h1 class="rv">Guillaume &amp; Diana</h1></section>
 <div class="row">
-<figure class="photo"><picture><source srcset="photo-couple-4.webp" type="image/webp"><img src="photo-couple-4.jpg" width="3672" height="4896" alt="Diana et Guillaume"></picture></figure>
-<section id="rsvp" class="framed rsvp"><p class="invite" data-i18n="rsvp_invite">Nous avons le plaisir de vous inviter à célébrer notre mariage le 3 juillet 2027</p><a href="rsvp.html" target="_blank" rel="noopener" class="btn" data-i18n="rsvp_button">RSVP</a><p class="small" data-i18n="rsvp_deadline">Réponse attendue avant le 30 janvier 2027</p><p class="small" data-i18n="rsvp_once">Une réponse par invité(e).</p></section>
+<figure class="photo rv"><picture><source srcset="photo-couple-4.webp" type="image/webp"><img src="photo-couple-4.jpg" width="3672" height="4896" alt="Diana et Guillaume"></picture></figure>
+<section id="rsvp" class="framed rsvp rv"><p class="invite" data-i18n="rsvp_invite">Nous avons le plaisir de vous inviter à célébrer notre mariage le 3 juillet 2027</p><a href="rsvp.html" target="_blank" rel="noopener" class="btn" data-i18n="rsvp_button">RSVP</a><p class="small" data-i18n="rsvp_deadline">Réponse attendue avant le 30 janvier 2027</p><p class="small" data-i18n="rsvp_once">Une réponse par invité(e).</p></section>
 </div>
 <div class="row swap">
-<figure class="photo"><picture><source srcset="photo-couple-5.webp" type="image/webp"><img src="photo-couple-5.jpg" width="2316" height="3088" alt="Diana et Guillaume" loading="lazy"></picture></figure>
-<section id="infos" class="framed"><h2 data-i18n="infos_title">Informations pratiques</h2><div class="info-list">
+<figure class="photo rv"><picture><source srcset="photo-couple-5.webp" type="image/webp"><img src="photo-couple-5.jpg" width="2316" height="3088" alt="Diana et Guillaume" loading="lazy"></picture></figure>
+<section id="infos" class="framed rv"><h2 data-i18n="infos_title">Informations pratiques</h2><div class="info-list">
 <div class="info"><img src="picto-eglise-ink.png" alt="" width="157" height="200" loading="lazy"><div><h3 data-i18n="ceremony_label">Cérémonie religieuse</h3><p class="place" data-i18n="church_place">Église Saint-Michel de Bertreville</p><a class="maps-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=4+Rte+de+l'Église,+76590+Bertreville-Saint-Ouen" data-i18n="maps_cta">Voir sur Google Maps</a></div></div>
 <div class="info"><img class="sm" src="picto-champagne-ink.png" alt="" width="192" height="192" loading="lazy"><div><h3 data-i18n="party_label">Cocktail, dîner, soirée, brunch</h3><p class="place" data-i18n="chateau_place">Château de Bertreville</p><a class="maps-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Château+de+Bertreville-Saint-Ouen" data-i18n="maps_cta">Voir sur Google Maps</a></div></div>
 </div></section>
 </div>
 <div class="row photo-left">
-<section id="programme" class="framed"><h2 data-i18n="programme_title">Programme</h2><div class="prog">
+<section id="programme" class="framed rv"><h2 data-i18n="programme_title">Programme</h2><div class="prog">
 <div class="tl"><span class="tl-time" data-i18n="ceremony_time">16h30</span><span class="tl-label" data-i18n="ceremony_label">Cérémonie religieuse</span></div>
 <div class="tl"><span class="tl-time" data-i18n="cocktail_time">17h30</span><span class="tl-label" data-i18n="cocktail_label">Cocktail</span></div>
 <div class="tl"><span class="tl-time" data-i18n="dinner_time">20h00</span><span class="tl-label" data-i18n="dinner_label">Dîner</span></div>
 <div class="soiree-grp"><div class="tl"><span class="tl-time" data-i18n="soiree_time">22h30</span><span class="tl-label" data-i18n="soiree_label">Soirée</span></div><p class="end-note" data-i18n="end_note">Heure de fin de la soirée : cela ne dépendra que de vous !</p></div>
 <div class="tl brunch"><span class="tl-time" data-i18n="brunch_time">11h30</span><span class="tl-label" data-i18n="brunch_label">Brunch le dimanche</span></div>
 </div></section>
-<figure class="photo"><picture><source srcset="photo-couple-6.webp" type="image/webp"><img src="photo-couple-6.jpg" width="3024" height="4032" alt="Diana et Guillaume" loading="lazy"></picture></figure>
+<figure class="photo rv"><picture><source srcset="photo-couple-6.webp" type="image/webp"><img src="photo-couple-6.jpg" width="3024" height="4032" alt="Diana et Guillaume" loading="lazy"></picture></figure>
 </div>
-<section id="faq" class="framed"><h2 data-i18n="faq_title">FAQ</h2><div class="faq-list"><details class="faq-item"><summary data-i18n="faq_parking_q">🅿️ Parking</summary><div class="faq-answer" data-i18n="faq_parking_a">Un parking est disponible au château et à proximité de l'église.</div></details><details class="faq-item"><summary data-i18n="faq_sleep_q">🏨 Où dormir ?</summary><div class="faq-answer" data-i18n="faq_sleep_a">Nous vous partagerons prochainement quelques adresses d'hôtels et de chambres d'hôtes à proximité du château.</div></details><details class="faq-item"><summary data-i18n="faq_return_q">🚕 Retour après la soirée</summary><div class="faq-answer" data-i18n="faq_return_a">Un taxi effectuera des trajets à partir de 01h et jusqu'à 04h du matin.</div></details><details class="faq-item"><summary data-i18n="faq_babysitter_q">🧒🏻 Babysitter</summary><div class="faq-answer" data-i18n="faq_babysitter_a">Oui, une solution de babysitting sera prévue pour les enfants.</div></details><details class="faq-item"><summary data-i18n="faq_plusone_q">➕1 autorisé ?</summary><div class="faq-answer" data-i18n="faq_plusone_a">Malheureusement non, sauf si votre +1 figure dans la liste des invités.</div></details><details class="faq-item"><summary data-i18n="faq_weather_q">☀️ Météo</summary><div class="faq-answer"><p data-i18n="faq_weather_a1">Si la météo le permet, le cocktail et le brunch auront lieu en extérieur dans le parc du château. Si la pluie s'invite à la fête, ils auront lieu à l'intérieur du château.</p><p data-i18n="faq_weather_a2">Le dîner et la soirée auront lieu à l'intérieur du château.</p></div></details></div></section>
-<section id="liste-mariage" class="framed"><div class="liste-box"><h2 data-i18n="liste_title">Liste</h2><p data-i18n="liste_text">Bien entendu, votre présence est le plus beau des cadeaux.</p><p class="liste-text2" data-i18n="liste_text2">Si vous souhaitez tout de même participer à notre liste de mariage, voici où la trouver :</p><a class="btn" href="https://www.kagnotte.com/" target="_blank" rel="noopener" data-i18n="liste_button">Voir la liste</a><p class="liste-closing" data-i18n="liste_closing">Nous avons hâte de vous retrouver pour cette merveilleuse journée !</p></div></section>
+<section id="faq" class="framed rv"><h2 data-i18n="faq_title">FAQ</h2><div class="faq-list"><details class="faq-item"><summary data-i18n="faq_parking_q">🅿️ Parking</summary><div class="faq-answer" data-i18n="faq_parking_a">Un parking est disponible au château et à proximité de l'église.</div></details><details class="faq-item"><summary data-i18n="faq_sleep_q">🏨 Où dormir ?</summary><div class="faq-answer" data-i18n="faq_sleep_a">Nous vous partagerons prochainement quelques adresses d'hôtels et de chambres d'hôtes à proximité du château.</div></details><details class="faq-item"><summary data-i18n="faq_return_q">🚕 Retour après la soirée</summary><div class="faq-answer" data-i18n="faq_return_a">Un taxi effectuera des trajets à partir de 01h et jusqu'à 04h du matin.</div></details><details class="faq-item"><summary data-i18n="faq_babysitter_q">🧒🏻 Babysitter</summary><div class="faq-answer" data-i18n="faq_babysitter_a">Oui, une solution de babysitting sera prévue pour les enfants.</div></details><details class="faq-item"><summary data-i18n="faq_plusone_q">➕1 autorisé ?</summary><div class="faq-answer" data-i18n="faq_plusone_a">Malheureusement non, sauf si votre +1 figure dans la liste des invités.</div></details><details class="faq-item"><summary data-i18n="faq_weather_q">☀️ Météo</summary><div class="faq-answer"><p data-i18n="faq_weather_a1">Si la météo le permet, le cocktail et le brunch auront lieu en extérieur dans le parc du château. Si la pluie s'invite à la fête, ils auront lieu à l'intérieur du château.</p><p data-i18n="faq_weather_a2">Le dîner et la soirée auront lieu à l'intérieur du château.</p></div></details></div></section>
+<section id="liste-mariage" class="framed rv"><div class="liste-box"><h2 data-i18n="liste_title">Liste</h2><p data-i18n="liste_text">Bien entendu, votre présence est le plus beau des cadeaux.</p><p class="liste-text2" data-i18n="liste_text2">Si vous souhaitez tout de même participer à notre liste de mariage, voici où la trouver :</p><a class="btn" href="https://www.kagnotte.com/" target="_blank" rel="noopener" data-i18n="liste_button">Voir la liste</a><p class="liste-closing" data-i18n="liste_closing">Nous avons hâte de vous retrouver pour cette merveilleuse journée !</p></div></section>
 </main>
 <footer><p data-i18n="footer">Guillaume &amp; Diana — 3 juillet 2027</p></footer>
 <script>
@@ -165,11 +194,12 @@ const SEG={"t0": "M0 4.485L10 4.578L10 5.371L0 5.283ZM0 8.485L10 8.759L10 9.547L
 function ln(k){return '<svg class="ln" viewBox="'+(k[0]==='l'||k[0]==='r'?'0 0 13 10':'0 0 10 13')+'" preserveAspectRatio="none" aria-hidden="true"><path d="'+SEG[k]+'"/></svg>'}
 document.querySelectorAll('.framed').forEach(function(el){const f=document.createElement('div');f.className='fa';f.setAttribute('aria-hidden','true');f.innerHTML='<i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>'+['t','b','l','r'].map(function(e){return '<span class="fe '+e+'">'+ln(e+'0')+'<b class="fo"></b>'+ln(e+'1')+'</span>'}).join('');el.insertBefore(f,el.firstChild)});
 function airProg(m){const list=document.querySelector('#infos .info-list'),infos=list.querySelectorAll('.info'),prog=document.querySelector('#programme .prog'),sec=document.getElementById('programme');prog.style.paddingTop='';prog.style.paddingBottom='';const lt=list.getBoundingClientRect();const top=infos[0].getBoundingClientRect().top-lt.top,bot=lt.bottom-infos[infos.length-1].getBoundingClientRect().bottom;prog.style.paddingTop=Math.max(0,top)+'px';prog.style.paddingBottom=Math.max(0,bot)+'px';if(sec.offsetHeight>m+1){prog.style.paddingTop=Math.max(0,top-(sec.offsetHeight-m))+'px'}}
-function equalize(){const all=[].slice.call(document.querySelectorAll('.framed'));all.forEach(function(e){e.style.minHeight=''});const opened=[].slice.call(document.querySelectorAll('.faq-item[open]'));opened.forEach(function(d){d.removeAttribute('open')});const group=window.matchMedia('(min-width:768px)').matches?['rsvp','infos','programme'].map(function(i){return document.getElementById(i)}):all;let m=0;group.forEach(function(e){m=Math.max(m,e.offsetHeight)});group.forEach(function(e){e.style.minHeight=m+'px'});airProg(m);opened.forEach(function(d){d.setAttribute('open','')})}
+function equalize(){const all=[].slice.call(document.querySelectorAll('.framed'));all.forEach(function(e){e.style.minHeight=''});const opened=[].slice.call(document.querySelectorAll('.faq-item[open]'));if(opened.length)document.documentElement.classList.add('noanim');opened.forEach(function(d){d.removeAttribute('open')});const group=window.matchMedia('(min-width:768px)').matches?['rsvp','infos','programme'].map(function(i){return document.getElementById(i)}):all;let m=0;group.forEach(function(e){m=Math.max(m,e.offsetHeight)});group.forEach(function(e){e.style.minHeight=m+'px'});airProg(m);opened.forEach(function(d){d.setAttribute('open','')});if(opened.length)requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('noanim')})})}
 function applyLang(lang){currentLang=lang;localStorage.setItem('site-lang',lang);document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){const key=el.getAttribute('data-i18n');if(translations[lang][key]!==undefined)el.textContent=translations[lang][key]});document.getElementById('lang-fr').setAttribute('aria-pressed',String(lang==='fr'));document.getElementById('lang-es').setAttribute('aria-pressed',String(lang==='es'));if(typeof equalize==='function')eqSoon()}
 document.getElementById('lang-fr').addEventListener('click',function(){applyLang('fr')});document.getElementById('lang-es').addEventListener('click',function(){applyLang('es')});window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('visible',window.scrollY>120)});applyLang(currentLang);
 var _rt;function eqSoon(){clearTimeout(_rt);_rt=setTimeout(equalize,60)}
 window.addEventListener('resize',eqSoon);window.addEventListener('load',equalize);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(equalize);equalize();
+var rv=[].slice.call(document.querySelectorAll('.rv'));if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});rv.forEach(function(el){io.observe(el)})}else{rv.forEach(function(el){el.classList.add('in')})}
 })();
 </script>
 </body>
